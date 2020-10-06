@@ -15,6 +15,7 @@ Breaking Changes:
 
 New Features:
 ^^^^^^^^^^^^^
+- EvalCallback now works also for recurrent policies
 
 Bug Fixes:
 ^^^^^^^^^^
