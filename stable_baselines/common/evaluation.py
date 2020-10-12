@@ -58,11 +58,11 @@ def evaluate_policy(
         episode_length = 0
         while not done:
             action, state = model.predict(obs, state=state, deterministic=deterministic)
+            new_obs, reward, done, _info = env.step(action)
             if is_recurrent:
-                new_obs, reward, done, _info = env.step(action)
                 obs[0, :] = new_obs
             else:
-                obs, reward, done, _info = env.step(action)
+                obs = new_obs
             episode_reward += reward
             if callback is not None:
                 callback(locals(), globals())
