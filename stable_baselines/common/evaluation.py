@@ -49,6 +49,8 @@ def evaluate_policy(
         # Avoid double reset, as VecEnv are reset automatically
         if not isinstance(env, VecEnv) or i == 0:
             obs = env.reset()
+            # Because recurrent policies need the same observation space during training and evaluation, we need to pad
+            # observation to match training shape. See https://github.com/hill-a/stable-baselines/issues/1015
             if is_recurrent:
                 zero_completed_obs = np.zeros((model.n_envs,) + model.observation_space.shape)
                 zero_completed_obs[0, :] = obs
